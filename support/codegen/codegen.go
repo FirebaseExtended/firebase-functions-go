@@ -92,7 +92,7 @@ package main
 
 import (
 	alias "{{ .Pkg }}"
-	"github.com/inlined/go-functions/support/emulator"
+	"github.com/FirebaseExtended/firebase-functions-go/emulator"
 )
 
 func main() {

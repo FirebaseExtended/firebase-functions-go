@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/FirebaseExtended/firebase-functions-go/support/emulator"
+	"github.com/FirebaseExtended/firebase-functions-go/support/runtime"
 )
 
 type Request = http.Request
@@ -35,10 +35,10 @@ type Function struct {
 	RunWith  Options
 }
 
-func (h Function) AddBackendDescription(symbolName string, b *emulator.Backend) {
+func (h Function) AddBackendDescription(symbolName string, b *runtime.Backend) {
 	// Runtime isn't specified from within the API?
-	b.CloudFunctions = append(b.CloudFunctions, emulator.FunctionSpec{
-		ApiVersion:        emulator.GCFv1,
+	b.CloudFunctions = append(b.CloudFunctions, runtime.FunctionSpec{
+		ApiVersion:        runtime.GCFv1,
 		Id:                symbolName,
 		EntryPoint:        fmt.Sprintf("%s.%s", symbolName, "Callback"),
 		MinInstances:      h.RunWith.MinInstances,

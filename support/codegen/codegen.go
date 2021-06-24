@@ -92,11 +92,11 @@ package main
 
 import (
 	alias "{{ .Pkg }}"
-	"github.com/FirebaseExtended/firebase-functions-go/support/emulator"
+	"github.com/FirebaseExtended/firebase-functions-go/support/runtime"
 )
 
 func main() {
-	emulator.Serve(map[string]interface{}{
+	runtime.Serve(map[string]interface{}{
 	{{- range .Triggers }}
 		"{{ . }}": alias.{{ . }},
 	{{- end }}

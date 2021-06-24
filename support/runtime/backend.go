@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package emulator
+package runtime
 
 import (
 	"os"
@@ -92,6 +92,7 @@ type ScheduleSpec struct {
 }
 
 type Backend struct {
+	SpecVersion    string            `yaml:"specVersion"`
 	RequiredAPIs   map[string]string `yaml:"requiredAPIs,omitempty"`
 	CloudFunctions []FunctionSpec    `yaml:"cloudFunctions"`
 	Topics         []PubSubSpec      `yaml:"topics,omitempty"`

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package emulator
+package runtime
 
 import (
 	"context"
@@ -33,6 +33,7 @@ type functionData map[string]function
 
 func (f functionData) DescribeBackend(w http.ResponseWriter, r *http.Request) {
 	b := Backend{
+		SpecVersion:    "v1alpha1",
 		RequiredAPIs:   map[string]string{},
 		CloudFunctions: make([]FunctionSpec, 0),
 		Topics:         make([]PubSubSpec, 0),

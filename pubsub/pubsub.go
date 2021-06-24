@@ -20,7 +20,7 @@ import (
 	"os"
 
 	"github.com/FirebaseExtended/firebase-functions-go/runwith"
-	"github.com/FirebaseExtended/firebase-functions-go/support/emulator"
+	"github.com/FirebaseExtended/firebase-functions-go/support/runtime"
 )
 
 type EventType string
@@ -51,7 +51,7 @@ type Event struct {
 	Data    Message `json:"data"`
 }
 
-func (p Function) AddBackendDescription(symbolName string, b *emulator.Backend) {
+func (p Function) AddBackendDescription(symbolName string, b *runtime.Backend) {
 	// A builder pattern could ensure Topic is always present...
 	if p.Topic == "" {
 		panic(fmt.Sprintf("pubsub.Function %s is missing required parameteer Topic", symbolName))
@@ -60,14 +60,14 @@ func (p Function) AddBackendDescription(symbolName string, b *emulator.Backend) 
 		p.EventType = V1.Publish
 	}
 
-	b.CloudFunctions = append(b.CloudFunctions, emulator.FunctionSpec{
-		ApiVersion: emulator.GCFv1,
+	b.CloudFunctions = append(b.CloudFunctions, runtime.FunctionSpec{
+		ApiVersion: runtime.GCFv1,
 		EntryPoint: fmt.Sprintf("%s.%s", symbolName, "Callback"),
 		Id:         symbolName,
 		Region:     p.Region,
-		Trigger: emulator.EventTrigger{
+		Trigger: runtime.EventTrigger{
 			EventType: string(p.EventType),
-			EventFilters: []emulator.EventFilter{
+			EventFilters: []runtime.EventFilter{
 				{
 					Attribute: "resource",
 					Value:     fmt.Sprintf("projects/%s/topics/%s", os.Getenv("GCLOUD_PROJECT"), p.Topic),
